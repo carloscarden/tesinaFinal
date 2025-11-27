@@ -1,0 +1,56 @@
+"""app URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic.base import TemplateView
+from suite.mmdLelFromApp.AplicadorMmdFromLel import AplicadorMmdFromLel
+from suite.views import *
+from suite.utils import obtenerTemplate
+from rest_framework.routers import DefaultRouter
+router = DefaultRouter()
+router.register(r'artefactitos', ArtefactosViewSet,basename="artefactitos")
+
+aplicadorMmdFromLel = AplicadorMmdFromLel()
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('proyectos/',proyectos,name="proyectos"),
+    path('proyectos/crear/',crearProyecto,name='crearProyecto'),
+    path('proyectos/eliminar/<str:id>',eliminarProyecto,name="destruirProyecto"),
+    path('proyectos/modificar/<str:id>',modificarProyecto,name="modificarProyecto"),
+    path('proyectos/artefactos/<str:id>/',artefactos,name="artefactos"),
+    path('proyectos/artefactos/ver/<str:id>',verArtefactos,name="verArtefactos"),
+    path('proyectos/artefactos/crear/<str:idP>/<str:idT>',crearArtefactos,name="crearArtefactos"),
+    path('proyectos/artefactos/modificar/<str:id>/<str:idP>',modificarArtefacto,name="modificarArtefactos"),
+    path('proyectos/artefactos/eliminar/<str:id>/<str:idP>',destruirArtefacto,name="destruirArtefactos"),
+    path('proyectos/artefactos/crearKg/<str:idP>/',crearArtefactoKG,name="crearKG"), 
+    path('proyectos/artefactos/nuevoMmdFromLel/<str:idP>/', aplicadorMmdFromLel.aplicarMmdFromLel ,name="nuevoMmdFromLel"),
+    path('template',obtenerTemplate,name="obtenerTemplate"),
+    path('', include(router.urls)),
+    path('pruebaIA/probar/',pantallaDePruebas,name="IA"),
+    path('pruebaIA/taggeo/',pantallaDeTaggeo,name="IATag"),
+    path('pruebaIA/training/',pantallaTraining,name="IATrain"),
+    path('pruebaIA/',pantallaDeIA,name="IAIndex"),
+    #path('pruebaIA/topic',pruebaAlgoritmoTopic,name="IATopic"),
+    #path('pruebaIA/desambiguar',desambiguacion,name="IADesambiguar"),
+    #path('pruebaIA/cluster',clustering,name="IACluster"),
+    #path('pruebaIA/similarity',simility,name="IAsimilitud"),
+    #path('pruebaIA/resumen',resumen,name="IAResumen"),
+    #path('pruebaIA/similarityScenario',compararEscenario,name="IAsimilitudScenario"),
+    path('procesarNgramas/<str:idP>',preprocesamiento_ngramas,name="ngram"),
+    ]

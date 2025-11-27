@@ -1,0 +1,41 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ super }}
+    <link rel="stylesheet" href="./css/botton.css" />
+    {% endblock %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+<div class="position-relative">
+<h1 class="position-absolute top-100 start-50 translate-middle mt-4 bi bi-caret-down-fill">Welcome {{user.username}}!</h1>
+</div>
+<div class="container-fluid h-custom"></div>
+<div class="row d-flex justify-content-center align-items-center fondoFlores py-5"> 
+  <div class="col-md-8 col-lg-6 col-xl-4     ">
+<div class="d-flex justify-content-center">
+<img src="{% static 'imagenes/logotipo.png'%}" class="img-fluid">
+</div> </div> </div> </div>
+
+{% else %}
+<div style="background-color:#1F1D4F; height: 100vh">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center fondoFlores py-5"> 
+      <div class="col-md-8 col-lg-6 col-xl-4 shadow-lg p-5 my-5 bg-white rounded ">
+        <div class="loginform ">
+          <div class="d-flex justify-content-center">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Padlock-lightblue.svg" alt="...">
+        </div>
+          <p>You are not logged in</p>
+          <a class="btn btn-primary form-control" href="{% url 'login' %}">Log In</a>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+  
+{% endif %}
+{% endblock %}

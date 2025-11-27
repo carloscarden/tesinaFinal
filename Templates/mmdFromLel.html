@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Project's artifacts{% endblock %}
+{% block head %}
+    {{ super }}
+    <link rel="stylesheet" href="./css/botton.css" />
+{% endblock %}
+
+
+{% block content %}
+  <script src="https://unpkg.com/gojs@2.2.15/release/go.js"></script>
+    {% if not user.is_authenticated %}
+    <div style="background-color:#1F1D4F; height: 100vh">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center fondoFlores py-5"> 
+            <div class="col-md-8 col-lg-6 col-xl-4 shadow-lg p-5 my-5 bg-white rounded ">
+                <div class="loginform">
+                <div class="d-flex justify-content-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Padlock-lightblue.svg" alt="...">
+                </div>
+                <p>You are not logged in</p>
+                <a class="btn btn-primary form-control" href="{% url 'login' %}">Log In</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+
+    {{ diagrama |json_script:"diagram-data" }}
+
+
+    <div id="sample">
+        <div style="width: 100%; display: flex; justify-content: space-between">
+            <div id="myPaletteDiv"
+      style="width: 200px; margin-right: 2px; background-color: rgb(255, 255, 255, 0); position: relative; -webkit-tap-highlight-color: rgba(0,0,0,0); cursor: auto;"          
+            >
+                <canvas tabindex="0" width="103" height="618"
+                    style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 103px; height: 618px; cursor: auto;"></canvas>
+                <div style="position: absolute; overflow: auto; width: 103px; height: 618px; z-index: 1;">
+                    <div style="position: absolute; width: 1px; height: 1px;"></div>
+                </div>
+            </div>
+            <div id="myDiagramDiv"
+            
+     style="border: 1px solid black; flex-grow: 1; height: 750px; background-color: rgb(255, 255, 255, 0); position: relative; 
+     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      cursor: auto; font: bold 11pt Lato, Helvetica, Arial, sans-serif;"
+>
+                <canvas tabindex="0" width="1011" height="618"
+                    style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 1011px; height: 618px; cursor: auto;"></canvas>
+                <div style="position: absolute; overflow: auto; width: 1011px; height: 618px; z-index: 1;">
+                    <div style="position: absolute; width: 1px; height: 1px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+        </div>
+    </div>
+    <button id="influence_button" class="link_selected" 
+    onclick="setMode('link','linkNormal');">Link Normal</button>
+    
+    <button id="influence_button" class="link_selected" 
+    onclick="setMode('link','linkOpcional');">Link Opcional</button>
+
+    {% endif %}
+
+     <script src="{% static 'scripts/mmdFromLel.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,7 @@
+
+# Ignore any files or directories within the subdirectory named "modules" 
+# in the context root
+modules/*
+mysql-data
+../entorno
+../okd
