@@ -53,41 +53,41 @@ and cultural differences.''')
 
     def lelMockeadoEmpresaAutos(self):
 
-        lel1 = LelMmd(Categoria.VERBO,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
+        lel1 = LelMmd(Categoria.VERBO.value,  'Sell a car', ''' Operation in which a client pays a price to obtain a car on a date in a store.''')
 
-        lel2 = LelMmd(Categoria.OBJETO, 'Price', '''Amount of money that the client must pay for the car.''')
+        lel2 = LelMmd(Categoria.OBJETO.value, 'Price', '''Amount of money that the client must pay for the car.''')
 
-        lel3 = LelMmd(Categoria.OBJETO, 'Car', '''Four-wheel vehicle that may have different packages and can be used
+        lel3 = LelMmd(Categoria.OBJETO.value, 'Car', '''Four-wheel vehicle that may have different packages and can be used
 either privately or commercially. A car has a model.''')
 
 
-        lel4 = LelMmd(Categoria.OBJETO, 'Store', '''Facility where the purchase has been done. 
+        lel4 = LelMmd(Categoria.OBJETO.value, 'Store', '''Facility where the purchase has been done. 
                    A store is located in one city.''')
 
-        lel5 = LelMmd(Categoria.OBJETO, 'Date', '''The day when the purchase has been done.''')
+        lel5 = LelMmd(Categoria.OBJETO.value, 'Date', '''The day when the purchase has been done.''')
 
-        lel6 = LelMmd(Categoria.SUJETO, 'Client', '''A person or organization. 
+        lel6 = LelMmd(Categoria.SUJETO.value, 'Client', '''A person or organization. 
                    A client may be described by gender and age''')
 
-        lel7 = LelMmd(Categoria.OBJETO, 'Gender', '''Male or female.''')
+        lel7 = LelMmd(Categoria.OBJETO.value, 'Gender', '''Male or female.''')
 
-        lel8 = LelMmd(Categoria.SUJETO, 'Model', '''A car design that belongs to one segment. 
+        lel8 = LelMmd(Categoria.SUJETO.value, 'Model', '''A car design that belongs to one segment. 
                    A model has an engine capacity and is manufactured in one or more factories''' )
 
-        lel9 = LelMmd(Categoria.OBJETO, 'Segment', '''A category that groups different car models according to 
+        lel9 = LelMmd(Categoria.OBJETO.value, 'Segment', '''A category that groups different car models according to 
                    their size, use, and capacity''')
         
 
-        lel10 = LelMmd(Categoria.OBJETO, 'Factory', '''A place where cars are manufactured''')
+        lel10 = LelMmd(Categoria.OBJETO.value, 'Factory', '''A place where cars are manufactured''')
         
         
-        lel11 = LelMmd(Categoria.OBJETO, 'Engine capacity', 
+        lel11 = LelMmd(Categoria.OBJETO.value, 'Engine capacity', 
                     '''The measurement of the total volume of the cylinders normally 
         expressed in cubic centimeters or litres, e.g., 1800 cc''')
         
-        lel17 = LelMmd(Categoria.OBJETO, 'City', ''' A city belongs to a state.''')
-        lel18 = LelMmd(Categoria.OBJETO, 'State', ''' A state belongs to a country.''')
-        lel19 = LelMmd(Categoria.OBJETO, 'Country', ''' An area of land that has or used to have its
+        lel17 = LelMmd(Categoria.OBJETO.value, 'City', ''' A city belongs to a state.''')
+        lel18 = LelMmd(Categoria.OBJETO.value, 'State', ''' A state belongs to a country.''')
+        lel19 = LelMmd(Categoria.OBJETO.value, 'Country', ''' An area of land that has or used to have its
 own government and laws.''')
         
         lels = [lel1,lel2,lel3,lel4,lel5, lel6, lel7, lel8, lel9, lel10, lel11, lel17, lel18, lel19]

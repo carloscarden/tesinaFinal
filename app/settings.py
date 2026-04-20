@@ -89,8 +89,8 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'req',
-        'USER': 'root',
-        'PASSWORD': '', # poner password para produccion
+        'USER': 'django',
+        'PASSWORD': '1234', # poner password para produccion
         'HOST': 'localhost',   # para produccion dejar db
         'PORT': '3306',
 

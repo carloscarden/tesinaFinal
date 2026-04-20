@@ -133,6 +133,7 @@ def artefactos(request,id):
     similaritySC = ""
     form=ElejirArtefactoAcrear()
     form2=Busqueda()
+    print(form2)
     if escen:
         ok=True
     if request.method == "POST":

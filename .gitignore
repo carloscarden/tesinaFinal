@@ -1,0 +1,105 @@
+# ==========================
+# PYTHON
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Dependencias binarias
+*.so
+*.dll
+*.dylib
+
+# Builds
+build/
+dist/
+*.egg-info/
+.eggs/
+wheels/
+pip-wheel-metadata/
+
+# Cache
+.cache/
+.python-version
+*.log
+
+# ==========================
+# EDITORES / IDE
+# ==========================
+
+# VSCode
+.vscode/
+.history/
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert/
+*.jupyter
+
+# ==========================
+# TESTING / COVERAGE
+# ==========================
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+.coverage
+*.cover
+*.py,cover
+.pytest_cache/
+
+# ==========================
+# DJANGO / FLASK
+# ==========================
+*.sqlite3
+instance/
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# ==========================
+# DOCKER
+# ==========================
+docker-compose.override.yml
+.env
+*.pid
+
+# ==========================
+# LOGS / DUMPS
+# ==========================
+*.log
+*.out
+*.err
+*.pid
+*.dump
+*.bak
+*.swp
+*.tmp
+
+# ==========================
+# OS / SISTEMA
+# ==========================
+
+# macOS
+.DS_Store
+.apdisk
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~

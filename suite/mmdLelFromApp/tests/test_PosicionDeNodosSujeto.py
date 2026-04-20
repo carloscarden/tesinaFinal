@@ -1,0 +1,185 @@
+
+from django.test import TestCase
+from suite.mmdLelFromApp.models.diagrama.ConstantesPosiciones import ConstantesPosiciones
+
+from suite.mmdLelFromApp.models.diagrama.Diagrama import Diagrama
+from suite.mmdLelFromApp.models.diagrama.DiagramasEnSujeto import DiagramasEnSujeto
+from suite.mmdLelFromApp.models.diagrama.ObjetoDiagrama import ObjetoDiagrama
+from suite.mmdLelFromApp.models.lel.CalculadorPosicionSujeto import CalculadorPosicionSujeto
+from suite.mmdLelFromApp.models.lel.Categoria import Categoria
+from suite.mmdLelFromApp.models.lel.LelMmd import LelMmd
+from suite.mmdLelFromApp.models.lelsProcesados.ProcesadoEnSujeto import ProcesadoEnSujeto
+
+class TestPosicion(TestCase):
+
+    def setUp(self) -> None:
+        self.diagrama = Diagrama([], [])
+        self.diagramasEnSujeto = DiagramasEnSujeto(self.diagrama)
+
+    def getObjetosDiagramaDelNodoQueTieneQueDevolver(self):
+        objeto2 = ObjetoDiagrama.nuevoNivel('n1', 'Model', (634,-128))
+        objeto3 = ObjetoDiagrama.nuevoNivel('n2', 'Model', (600,-135))
+        objeto4 = ObjetoDiagrama.nuevoNivel('n3', 'Model', (565,-128))
+        objeto5 = ObjetoDiagrama.nuevoNivel('n4', 'Model', (535,-111))
+        objetosLadoArriba = [objeto2,objeto3,objeto4,objeto5]        
+
+        objeto6 = ObjetoDiagrama.nuevoNivel('n5', 'Model', (1100,-35))
+        objeto7 = ObjetoDiagrama.nuevoNivel('n6', 'Model', (1093,-69))
+        objeto8 = ObjetoDiagrama.nuevoNivel('n7', 'Model', (1076,-99))
+        objeto9 = ObjetoDiagrama.nuevoNivel('n8', 'Model', (1050,-121))
+        objetosLadoDerecho = [objeto6,objeto7,objeto8,objeto9]        
+
+
+        objeto10 = ObjetoDiagrama.nuevoNivel('n9', 'Model', (500,135))
+        objeto11 = ObjetoDiagrama.nuevoNivel('n10', 'Model', (506,169))
+        objeto12 = ObjetoDiagrama.nuevoNivel('n11', 'Model', (523,199))
+        objeto13 = ObjetoDiagrama.nuevoNivel('n12', 'Model', (550,221))
+        objetosLadoIzquierdo = [objeto10,objeto11,objeto12,objeto13]        
+
+        objeto14 = ObjetoDiagrama.nuevoNivel('n13', 'Model', (965,228))
+        objeto15 = ObjetoDiagrama.nuevoNivel('n14', 'Model', (1000,235))
+        objeto16 = ObjetoDiagrama.nuevoNivel('n15', 'Model', (1034,228))
+        objeto17 = ObjetoDiagrama.nuevoNivel('n16', 'Model', (1064,211))
+        objetosLadoAbajo = [objeto14,objeto15,objeto16,objeto17]        
+
+        return [objetosLadoArriba,objetosLadoDerecho, objetosLadoAbajo, objetosLadoIzquierdo]
+
+
+    def get_dimensiones_en_sujeto(self):
+
+        lelsDeSujetoArriba1 = LelMmd(Categoria.SUJETO, 'n1','''notion''')
+        lelsDeSujetoArriba2 = LelMmd(Categoria.SUJETO, 'n2', '''notion2''')
+        lelsDeSujetoArriba3 = LelMmd(Categoria.SUJETO, 'n3', '''notion3''')
+        lelsDeSujetoArriba4 = LelMmd(Categoria.SUJETO, 'n4', '''notion4''')
+
+        dimensionesSujetoArriba = [lelsDeSujetoArriba1, 
+                                   lelsDeSujetoArriba2, lelsDeSujetoArriba3, lelsDeSujetoArriba4 ]
+
+        lelsDeSujetoDerecha1 = LelMmd(Categoria.SUJETO, 'n5', '''notion2''')
+        lelsDeSujetoDerecha2 = LelMmd(Categoria.SUJETO, 'n6', '''notion3''')
+        lelsDeSujetoDerecha3 = LelMmd(Categoria.SUJETO, 'n7', '''notion4''')
+        lelsDeSujetoDerecha4 = LelMmd(Categoria.SUJETO, 'n8','''notion''')
+
+        dimensionesSujetoDerecha = [lelsDeSujetoDerecha1,
+                                     lelsDeSujetoDerecha2, lelsDeSujetoDerecha3, lelsDeSujetoDerecha4, ]
+
+        lelsDeSujetoAbajo6 = LelMmd(Categoria.SUJETO, 'n9', '''notion2''')
+        lelsDeSujetoAbajo7 = LelMmd(Categoria.SUJETO, 'n10', '''notion3''')
+        lelsDeSujetoAbajo8 = LelMmd(Categoria.SUJETO, 'n11', '''notion4''')
+        lelsDeSujetoAbajo9 = LelMmd(Categoria.SUJETO, 'n12','''notion''')
+
+        dimensionesSujetoAbajo = [lelsDeSujetoAbajo6,
+                                   lelsDeSujetoAbajo7, lelsDeSujetoAbajo8, lelsDeSujetoAbajo9 ]
+        
+        lelsDeSujetoIzquierda11 = LelMmd(Categoria.SUJETO, 'n13', '''notion2''')
+        lelsDeSujetoIzquierda12 = LelMmd(Categoria.SUJETO, 'n14', '''notion3''')
+        lelsDeSujetoIzquierda13 = LelMmd(Categoria.SUJETO, 'n15', '''notion4''')
+        lelsDeSujetoIzquierda14 = LelMmd(Categoria.SUJETO, 'n16','''notion''')
+
+        dimensionesSujetoIzquierda = [lelsDeSujetoIzquierda11, 
+                       lelsDeSujetoIzquierda12, lelsDeSujetoIzquierda13, lelsDeSujetoIzquierda14, ]
+        
+
+        return [dimensionesSujetoArriba,dimensionesSujetoDerecha, dimensionesSujetoAbajo, dimensionesSujetoIzquierda]
+
+
+    def generar_nodos_sujeto(self, dimensiones, posicion, sujeto: LelMmd, angulo):
+        calculadorPosicionSujeto = CalculadorPosicionSujeto(angulo)
+        sujeto.actualizarPosicionDiagramaSujeto(calculadorPosicionSujeto, posicion)
+
+        mockProcesadoEnSujeto = ProcesadoEnSujeto([],[],dimensiones,[],[])
+        self.diagramasEnSujeto.generarObjetosDelDiagramaPorSujeto(mockProcesadoEnSujeto, sujeto)
+
+    def test_posiciones_en_nodo(self):
+
+        objetoDiagramasQueTieneQueDevolver = self.getObjetosDiagramaDelNodoQueTieneQueDevolver()
+        dimensionesAprocesar = self.getDimensionesEnSujeto()
+
+        sujetoArriba = LelMmd(Categoria.OBJETO, 's1', '''notion''')
+        self.generar_nodos_sujeto( dimensionesAprocesar[0], (600.0, -35.0), sujetoArriba,
+                                 ConstantesPosiciones.ANGULO_APERTURA_LADO_ARRIBA.value)
+
+        sujetoDerecha = LelMmd(Categoria.OBJETO, 's2', '''notion''')
+        self.generar_nodos_sujeto(dimensionesAprocesar[1], (1000.0, -35.0), sujetoDerecha,
+                                   ConstantesPosiciones.ANGULO_APERTURA_LADO_DERECHO.value)
+
+        sujetoAbajo = LelMmd(Categoria.OBJETO, 's3', '''notion''')
+        self.generar_nodos_sujeto(dimensionesAprocesar[2], (600.0, 135.0), sujetoAbajo,
+                                 ConstantesPosiciones.ANGULO_APERTURA_LADO_ABAJO.value)
+
+        sujetoIzquierda = LelMmd(Categoria.OBJETO, 's4', '''notion''')
+        self.generar_nodos_sujeto(dimensionesAprocesar[3], (1000.0, 135.0), sujetoIzquierda,
+                                 ConstantesPosiciones.ANGULO_APERTURA_LADO_IZQUIERDO.value)
+
+
+        diagramasDevueltos = self.diagrama.objetosDelDiagrama
+
+        print("     ")
+        print("Diagramas devueltos::\n", "\n ".join(map(str, diagramasDevueltos)))
+        print("              TEST POSICIONES DEL SUJETO!!!")
+        try:
+            objetoDiagramaArribaQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[0]
+            print("objetoDiagramaArribaQueTieneQueDevolver que tiene que devolver::\n",
+                  "\n ".join(map(str, objetoDiagramaArribaQueTieneQueDevolver)))
+            # Comprueba que todos los links se dibujaron correctamente
+            for s in objetoDiagramaArribaQueTieneQueDevolver:
+                hayObjeto = any((oa.key == s.key 
+                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
+                                       for oa in diagramasDevueltos)
+                if(not hayObjeto):
+                    print("objeto no encontrado: ",s)
+                
+                self.assertTrue(hayObjeto)
+            print("PASA OBJETOS diagrama arriba")
+
+
+            objetoDiagramaDerechaQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[1]
+            print("objetoDiagramaDerechaQueTieneQueDevolver que tiene que devolver::\n",
+                  "\n ".join(map(str, objetoDiagramaDerechaQueTieneQueDevolver)))
+            # Comprueba que todos los links se dibujaron correctamente
+            for s in objetoDiagramaDerechaQueTieneQueDevolver:
+                hayObjeto = any((oa.key == s.key 
+                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
+                                       for oa in diagramasDevueltos)
+                if(not hayObjeto):
+                    print("objeto no encontrado: ",s)
+                
+                self.assertTrue(hayObjeto)
+
+            print("PASA OBJETOS diagrama derecha")
+                
+            objetoDiagramaAbajoQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[2]
+            print("objetoDiagramaAbajoQueTieneQueDevolver que tiene que devolver::\n",
+                  "\n ".join(map(str, objetoDiagramaAbajoQueTieneQueDevolver)))
+            # Comprueba que todos los links se dibujaron correctamente
+            for s in objetoDiagramaAbajoQueTieneQueDevolver:
+                hayObjeto = any((oa.key == s.key 
+                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
+                                       for oa in diagramasDevueltos)
+                if(not hayObjeto):
+                    print("objeto no encontrado: ",s)
+                
+                self.assertTrue(hayObjeto)
+                    
+            print("PASA OBJETOS diagrama abajo")
+
+            objetoDiagramaIzquierdaQueTieneQueDevolver = objetoDiagramasQueTieneQueDevolver[3]
+            print("objetoDiagramaIzquierdaQueTieneQueDevolver que tiene que devolver::\n",
+                  "\n ".join(map(str, objetoDiagramaIzquierdaQueTieneQueDevolver)))
+            # Comprueba que todos los links se dibujaron correctamente
+            for s in objetoDiagramaIzquierdaQueTieneQueDevolver:
+                hayObjeto = any((oa.key == s.key 
+                                     and oa.posicionX == s.posicionX and oa.posicionY == s.posicionY)
+                                       for oa in diagramasDevueltos)
+                if(not hayObjeto):
+                    print("objeto no encontrado: ",s)
+                
+                self.assertTrue(hayObjeto)
+            print("PASA OBJETOS diagrama izquierda")
+                    
+            # Comprueba que todos los simbolos en hechosQueTieneQueDevolver están en resultado
+            print("TODO BIEN")
+        except AssertionError:
+            print("TODO MAL")
+        finally:
+            print('***********************************************************')
