@@ -11,7 +11,6 @@ class LelMmd:
 en el cual se definen símbolos (términos o frases), y cada símbolo se define a través
 de dos atributos: la noción y los impactos'''
     
-    i = 12345
 
     def __init__(self, categoria: str = None, simbolo: str= None, nocion: str= None):
         self.categoria = categoria

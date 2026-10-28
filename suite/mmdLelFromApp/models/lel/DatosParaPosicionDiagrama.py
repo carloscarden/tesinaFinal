@@ -7,7 +7,6 @@ from suite.mmdLelFromApp.models.lel.CalculadorPosicionVerbo import CalculadorPos
 
 
 class DatosParaPosicionDiagrama:
-    i = 12345
 
 
     def __init__(self,  unaPosicionDiagrama = None, calculadorPosicionVerbo: CalculadorPosicionVerbo = None, 

@@ -1,5 +1,6 @@
 from typing import List
 
+from suite.mmdLelFromApp.builders import DiagramaBuilder
 from suite.mmdLelFromApp.models.diagrama.Diagrama import Diagrama
 from suite.mmdLelFromApp.models.diagrama.DiagramasEnVerbo import DiagramasEnVerbo
 from suite.mmdLelFromApp.models.lel.LelMmd import LelMmd
@@ -10,8 +11,8 @@ from suite.mmdLelFromApp.services.ReglasEnVerbo import ReglasEnVerbo
 
 class AplicadorDeReglasVerbo():
     
-    def __init__(self, diagrama: Diagrama):
-        self.diagramasEnVerbo =DiagramasEnVerbo(diagrama) 
+    def __init__(self, diagramaBuilder: DiagramaBuilder) -> None:
+        self.diagramasEnVerbo =DiagramasEnVerbo(diagramaBuilder) 
         self.reglasVerbo = ReglasEnVerbo()
 
     def aplicarReglasDeVerbo(self, lels: List[LelMmd]):

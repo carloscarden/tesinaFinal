@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 
 import json
+from suite.mmdLelFromApp.builders.DiagramaBuilder import DiagramaBuilder
 from suite.mmdLelFromApp.models.diagrama.Diagrama import Diagrama
 from suite.mmdLelFromApp.models.lel.LelMmd import LelMmd
 from suite.mmdLelFromApp.services.AplicadorReglasSujeto import AplicadorDeReglasSujeto
@@ -30,14 +31,15 @@ class AplicadorMmdFromLel:
         sel=request.session["lelsSeleccionados"]
         lelsAprocesar = self.encontrarLosLel(sel)
         diagrama = Diagrama([], [])
+        diagramaBuilder = DiagramaBuilder(diagrama)
 
 #        dictDiagrama = diagrama.mock_dict()
  
 
-        aplicadorDeReglasVerbo = AplicadorDeReglasVerbo(diagrama) 
+        aplicadorDeReglasVerbo = AplicadorDeReglasVerbo(diagramaBuilder) 
         lelsCategoricosDeVerbo = aplicadorDeReglasVerbo.aplicarReglasDeVerbo(lelsAprocesar)
 
-        aplicadorDeReglasSujeto = AplicadorDeReglasSujeto(diagrama)
+        aplicadorDeReglasSujeto = AplicadorDeReglasSujeto(diagramaBuilder)
         aplicadorDeReglasSujeto.aplicarReglasDeSujeto(lelsCategoricosDeVerbo, lelsAprocesar)
 
         return render(request,'mmdFromLel.html',{"ok":ok,"diagrama":diagrama.to_dict()})

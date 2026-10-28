@@ -4,6 +4,11 @@ from suite.mmdLelFromApp.models.diagrama.ObjetoDiagrama import ObjetoDiagrama
 
 
 class DiagramaBuilder:
+
+    '''Clase que se encarga de construir el diagrama a partir de 
+    los objetos y links que se le van agregando'''
+
+
     def __init__(self, diagrama: Diagrama):
         self.diagrama = diagrama
 

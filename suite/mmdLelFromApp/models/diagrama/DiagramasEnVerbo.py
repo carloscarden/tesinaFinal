@@ -1,6 +1,6 @@
 from typing import List
+from suite.mmdLelFromApp.builders.DiagramaBuilder import DiagramaBuilder
 from suite.mmdLelFromApp.models.diagrama.ConstantesPosiciones import ConstantesPosiciones
-from suite.mmdLelFromApp.models.diagrama.Diagrama import Diagrama
 from suite.mmdLelFromApp.models.diagrama.ObjetoDiagrama import ObjetoDiagrama
 
 from suite.mmdLelFromApp.models.lel.LelMmd import LelMmd
@@ -9,15 +9,14 @@ from suite.mmdLelFromApp.models.lelsProcesados.ProcesadoEnVerbo import Procesado
 
 class DiagramasEnVerbo:
 
-    i = 12345
-
-    def __init__(self, unDiagrama: Diagrama):
-        self.diagrama=  unDiagrama
+    
+    def __init__(self,  builder: DiagramaBuilder):
+        self.diagramaBuilder =  builder
         self.posicionVerbo = (ConstantesPosiciones.XVERBO.value , ConstantesPosiciones.YVERBO.value)
         
 
     def nuevoHecho(self, verbo: LelMmd):
-        return self.diagrama.nuevoHechoDelDiagrama(verbo.simbolo, self.posicionVerbo)
+        return self.diagramaBuilder.crear_hecho(verbo.simbolo, self.posicionVerbo)
 
     def actualizarPosicionVerbo(self):
         self.posicionVerbo = (self.posicionVerbo[0]+ConstantesPosiciones.ACTUALIZACION_X.value, 
@@ -102,8 +101,8 @@ class DiagramasEnVerbo:
 
             simboloDimension = lelDimension.simbolo
             simboloVerbo = verboLel.simbolo
-            self.diagrama.nuevoObjetoDimensionDelDiagrama(simboloDimension, simboloVerbo, posicionNueva)
-            self.diagrama.nuevoLinkDimensionDelDiagrama(simboloDimension, simboloVerbo)
+            self.diagramaBuilder.crear_dimension(simboloDimension, simboloVerbo, posicionNueva)
+            self.diagramaBuilder.crear_link_dimension(simboloDimension, simboloVerbo)
 
             lelDimension.actualizarPosicionDiagramaSujeto(verboLel.getCalculadorPosicionSujeto(), posicionNueva)
             lelDimension.terminadoDeDibujarNodo()

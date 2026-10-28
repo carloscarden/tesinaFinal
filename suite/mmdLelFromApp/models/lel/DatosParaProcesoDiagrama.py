@@ -7,7 +7,6 @@ from suite.mmdLelFromApp.models.diagrama.TipoObjetoDiagrama import TipoObjetoDia
 
 class DatosParaProcesoDiagrama:
 
-    i = 12345
 
     def __init__(self, procesado: bool = False, docNotion: Doc = None, 
                  unTipoObjetoDiagrama: str = None, unaPosicionDiagrama = None):
